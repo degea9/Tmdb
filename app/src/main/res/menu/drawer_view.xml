@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/discover">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_movie" android:icon="@drawable/ic_movie_96"
+                      android:title="@string/movies"/>
+                <item android:id="@+id/nav_tv_shows" android:icon="@drawable/ic_tv_show_96"
+                      android:title="@string/tv_shows"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/movies">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_movie_popular" android:icon="@drawable/ic_popular_96"
+                      android:title="@string/popular"/>
+                <item android:id="@+id/nav_movie_top_rated" android:icon="@android:drawable/ic_menu_send"
+                      android:title="@string/top_rated"/>
+            </group>
+        </menu>
+    </item>
+</menu>
