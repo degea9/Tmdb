@@ -1,11 +1,11 @@
 package movietube.tuandang.android.com.movietube.ui.api
 
+import kotlinx.coroutines.Deferred
 import movietube.tuandang.android.com.movietube.api.ApiResponse
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Query
 
-interface MovieService{
+interface TmdbService {
     @GET("discover/movie")
-    fun getMovie(): Call<ApiResponse>
+    fun getMovie(): Deferred<Response<ApiResponse>>
 }

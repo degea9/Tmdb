@@ -3,7 +3,6 @@ package com.android.tmdb.movie.degea9.di
 import dagger.Module
 import dagger.Provides
 import movietube.tuandang.android.com.movietube.api.interceptor.ApiKeyInterceptor
-import movietube.tuandang.android.com.movietube.ui.api.MovieService
 import movietube.tuandang.android.com.movietube.util.URLUtils
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
