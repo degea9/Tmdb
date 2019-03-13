@@ -1,4 +1,4 @@
-package movietube.tuandang.android.com.movietube.api
+package com.android.tmdb.movie.degea9.data.api.model
 
 import com.google.gson.annotations.SerializedName
 import movietube.tuandang.android.com.movietube.db.entity.Movie

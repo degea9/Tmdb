@@ -3,8 +3,10 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context=".ui.MainFragment"
+              tools:context=".ui.top.MainFragment"
               android:orientation="vertical">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:text="HHHHHH"/>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_trending"
@@ -13,7 +15,14 @@
 
     </androidx.viewpager.widget.ViewPager>
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movies"
+            android:id="@+id/rv_on_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_in_theaters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
