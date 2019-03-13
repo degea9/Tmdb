@@ -14,4 +14,4 @@
 gradlew*
 gradle/
 .idea*
-app/build*
+app/build/*
