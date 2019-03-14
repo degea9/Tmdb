@@ -7,16 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.android.tmdb.movie.degea9.R
+
 import com.android.tmdb.movie.degea9.data.api.TmdbService
+import com.android.tmdb.movie.degea9.data.api.interceptor.ApiKeyInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.*
-import movietube.tuandang.android.com.movietube.api.interceptor.ApiKeyInterceptor
-import movietube.tuandang.android.com.movietube.util.URLUtils
+
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.logging.HttpLoggingInterceptor
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +41,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val okHttpClient = OkHttpClient.Builder().addInterceptor(ApiKeyInterceptor()).build()
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val okHttpClient = OkHttpClient.Builder().addInterceptor(ApiKeyInterceptor()).addInterceptor(interceptor).build()
         val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(TmdbService.BASE_URL)
@@ -48,12 +52,12 @@ class MainFragment : Fragment() {
             .build()
         val tmdbService = retrofit.create(TmdbService::class.java)
         myJob = CoroutineScope(Dispatchers.IO).launch {
-            val result = tmdbService.getBroadcastingTv().await()
+            val result = tmdbService.getPlayingMovies().await()
             withContext(Dispatchers.Main) {
                 //do something with result
                 if(result.isSuccessful) {
                     Log.e("Top", "api success");
-                    Log.e("Top","result "+result.body())
+                    Log.e("Top","result size "+result.body()?.results?.size)
                 }
                 else Log.e("Top","api error");
             }

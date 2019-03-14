@@ -3,12 +3,11 @@ package com.android.tmdb.movie.degea9.data.api.model
 import com.android.tmdb.movie.degea9.data.database.entity.TVShow
 import com.google.gson.annotations.SerializedName
 
+/**
+ * a model class for tv shows
+ */
 data class TVShowResponse(
-    @SerializedName("page")
-    val page: Int,
-    @SerializedName("total_results")
-    val totalResults: Int,
     @SerializedName("results")
-    val movies: List<TVShow>
+    val results: List<TVShow>
 
-)
+) : BaseApiResponse()

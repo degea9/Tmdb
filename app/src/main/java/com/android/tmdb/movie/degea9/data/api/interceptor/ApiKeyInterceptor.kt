@@ -1,4 +1,4 @@
-package movietube.tuandang.android.com.movietube.api.interceptor
+package com.android.tmdb.movie.degea9.data.api.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
