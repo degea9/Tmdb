@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.data.api.TmdbService
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class MainFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        percentView.percent = 0.75f
         myJob = CoroutineScope(Dispatchers.IO).launch {
             val result = tmdbService.getPlayingMovies().await()
             withContext(Dispatchers.Main) {
