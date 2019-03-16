@@ -6,11 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.android.tmdb.movie.degea9.R
-import com.android.tmdb.movie.degea9.data.api.TmdbService
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
@@ -24,9 +23,12 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class MainFragment : DaggerFragment() {
+
     @Inject
-    lateinit var tmdbService: TmdbService
-    private var myJob: Job? = null
+    lateinit var topViewModelFactory:TopViewModelFactory
+
+    lateinit var topViewModel: TopViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,27 +39,11 @@ class MainFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        percentView.percent = 0.75f
-        myJob = CoroutineScope(Dispatchers.IO).launch {
-            val result = tmdbService.getPlayingMovies().await()
-            withContext(Dispatchers.Main) {
-                //do something with result
-                if (result.isSuccessful) {
-                    Log.e("Top", "api success");
-
-                    Log.e("Top", "result size " + result.body()?.results?.size)
-                } else Log.e("Top", "api error");
-
-                Log.e("Top", "result " + result.body())
-            }
-
-        }
+        topViewModel = ViewModelProviders.of(this,topViewModelFactory).get(TopViewModel::class.java)
+        topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
+            Log.e("degea9", "tvshow on the air size " + it.size)
+        })
     }
 
-
-    override fun onDestroy() {
-        myJob?.cancel()
-        super.onDestroy()
-    }
 
 }

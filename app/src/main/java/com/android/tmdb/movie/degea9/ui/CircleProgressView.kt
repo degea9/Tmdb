@@ -2,10 +2,7 @@ package com.android.tmdb.movie.degea9.ui
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -22,11 +19,11 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
     val textPaint = TextPaint()
     var sweepAngle = 0f;
     var percentText:String = ""
-    var percent = 0f
+    var percent:Int = 0
         set(value) {
             if (value >= 0) {
                 field = value
-                percentText = (value*100).toString()
+                percentText = value.toString()
                 animatePercent()
             }
         }
@@ -59,7 +56,7 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
             Log.e("CircleProgressView", "hightMode UNSPECIFIED");
         }
 
-        setMeasuredDimension(height, height)
+        setMeasuredDimension(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -81,12 +78,12 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
         textPaint.isAntiAlias = true
         textPaint.style = Paint.Style.FILL
         textPaint.strokeWidth = 20f
-        textPaint.textSize = 100f
-        canvas.drawCircle(width / 2f, height / 2f, width / 3f+20, bgPaint1)
-        canvas.drawCircle(width / 2f, height / 2f, width / 3f, bgpaint)
+        textPaint.textSize = width/3f
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, bgPaint1)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f-20, bgpaint)
         val center_x = width / 2f
         val center_y = height / 2f
-        val radius = width / 3f
+        val radius = width / 2f-20
 
         val left = center_x - radius
         val top = center_y - radius
@@ -94,16 +91,19 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
         val bottom = center_y + radius
         val oval = RectF()
         oval.set(left, top, right, bottom)
+        spinningPaint.setStrokeCap(Paint.Cap.ROUND)
         canvas.drawArc(oval, 270f, sweepAngle, false, spinningPaint);
 
         val widthText = textPaint.measureText(percentText)
-        Log.e("tuandang","width text "+widthText+ " text size "+textPaint.textSize)
-        canvas.drawText(percentText,width/2f-widthText/2,height/2f+textPaint.textSize/2,textPaint)
+        val aaa = (textPaint.descent() + textPaint.ascent()) / 2
+        textPaint.typeface = Typeface.SANS_SERIF
+        Log.e("tuandang","width text "+widthText+ " text size "+textPaint.textSize+ " ascent "+textPaint.ascent()+" descent "+textPaint.descent())
+        canvas.drawText(percentText,width/2f-widthText/2,height/2f-aaa,textPaint)
     }
 
 
     fun animatePercent() {
-        val animator = ValueAnimator.ofFloat(0f, 360f *percent)
+        val animator = ValueAnimator.ofFloat(0f, 360f *percent/100f)
         animator.duration = 2500
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
