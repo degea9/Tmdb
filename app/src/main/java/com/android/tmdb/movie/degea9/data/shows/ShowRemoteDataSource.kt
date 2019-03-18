@@ -7,13 +7,15 @@ import com.android.tmdb.movie.degea9.data.database.entity.TVShow
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ShowRemoteDataSource @Inject constructor(val service: TmdbService) {
 
     /**
      * get on the air shows
      */
-    suspend fun getBroadcastingShows(): Result<List<TVShow>>{
+    suspend fun getBroadcastingShows(): Result<List<TVShow>> {
         return try {
             val response = service.getBroadcastingShows().await()
             getResult(response = response, onError = {

@@ -10,8 +10,9 @@ import com.android.tmdb.movie.degea9.data.shows.ShowRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TopViewModel(
+class TopViewModel @Inject constructor(
     private val showRepository: ShowRepository
     //private val movieRepository: ShowRepository
 

@@ -25,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
 class MainFragment : DaggerFragment() {
 
     @Inject
-    lateinit var topViewModelFactory:TopViewModelFactory
+    lateinit var viewModelFactory:TmdbViewModelFactory
 
     lateinit var topViewModel: TopViewModel
 
@@ -37,13 +37,12 @@ class MainFragment : DaggerFragment() {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        topViewModel = ViewModelProviders.of(this,topViewModelFactory).get(TopViewModel::class.java)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        topViewModel = ViewModelProviders.of(this,viewModelFactory).get(TopViewModel::class.java)
         topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
             Log.e("degea9", "tvshow on the air size " + it.size)
         })
     }
-
 
 }

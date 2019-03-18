@@ -6,7 +6,7 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentBuildersModule {
-    @ContributesAndroidInjector(modules = [TopModule::class])
+    @ContributesAndroidInjector
     abstract fun contributePopularFragment(): MainFragment
 
 }

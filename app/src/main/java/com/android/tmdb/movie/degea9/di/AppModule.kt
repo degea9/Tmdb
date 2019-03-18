@@ -6,7 +6,7 @@ import dagger.Provides
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-@Module(includes = [NetModule::class])
+@Module(includes = [NetModule::class,ViewModelModule::class])
 class AppModule {
 
     @Singleton
