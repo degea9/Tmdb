@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="show"
-                type="com.android.tmdb.movie.degea9.data.database.entity.TVShow"/>
+                name="movie"
+                type="com.android.tmdb.movie.degea9.data.database.entity.Movie"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,11 +19,11 @@
                 android:id="@+id/poster"
                 app:layout_constraintTop_toTopOf="parent"
                 android:adjustViewBounds="true"
-                app:imageUrl="@{show.backdropPath}"
+                app:imageUrl="@{movie.backdropPath}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
-                android:text="@{show.name}"
+                android:text="@{movie.title}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/title"
@@ -35,7 +35,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp"/>
         <TextView
-                android:text="@{show.firstAirDate}"
+                android:text="@{movie.releaseDate}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="0dp"

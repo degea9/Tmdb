@@ -2,9 +2,11 @@ package com.android.tmdb.movie.degea9.data.api
 
 import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
 import com.android.tmdb.movie.degea9.data.api.model.TVShowResponse
+import com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbService {
@@ -108,6 +110,22 @@ interface TmdbService {
         @Query("include_video") include_video: Boolean? = false,
         @Query("page") page: Int? = 1
     ): Deferred<Response<TVShowResponse>>
+
+    /**
+     * get trending movies in time window
+     */
+    @GET("trending/movie/day")
+    fun getTrendingMovies(
+    ): Deferred<Response<MovieResponse>>
+
+    /**
+     * get Tv show detail
+     */
+    @GET("tv/{tv_id}")
+    fun getShowDetail(
+        @Path("tv_id") tv_id:Int,
+        @Query("language") language: String? = "en-US"
+    ): Deferred<Response<TvShowDetail>>
 
     companion object {
         val BASE_URL = "https://api.themoviedb.org/3/"

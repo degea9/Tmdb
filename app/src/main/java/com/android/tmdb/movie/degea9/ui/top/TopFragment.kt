@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.databinding.FragmentMainBinding
+import com.android.tmdb.movie.degea9.ui.top.adapter.InTheatersAdapter
 import com.android.tmdb.movie.degea9.ui.top.adapter.OnTvAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -50,11 +50,18 @@ class MainFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         topViewModel = ViewModelProviders.of(this, viewModelFactory).get(TopViewModel::class.java)
-        rv_on_tv.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
-        topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
-            Log.e("tuandang", "tvshow on the air size " + it.size)
-            rv_on_tv.adapter = OnTvAdapter(it)
+        rv_in_theaters.layoutManager = GridLayoutManager(this.context, 1)
+        rv_on_tv.layoutManager = GridLayoutManager(this.context, 1)
 
+        topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
+            rv_on_tv.adapter = OnTvAdapter(it){
+                Log.e("tuandang","show id "+it.id)
+            }
+
+        })
+
+        topViewModel.onTheaterMovies.observe(viewLifecycleOwner, Observer {
+            rv_in_theaters.adapter = InTheatersAdapter(it)
         })
     }
 
