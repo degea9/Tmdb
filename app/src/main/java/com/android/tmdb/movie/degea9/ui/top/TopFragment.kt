@@ -1,6 +1,7 @@
 package com.android.tmdb.movie.degea9.ui.top
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.databinding.FragmentMainBinding
+import com.android.tmdb.movie.degea9.ui.showdetail.ShowDetailActivity
 import com.android.tmdb.movie.degea9.ui.top.adapter.InTheatersAdapter
 import com.android.tmdb.movie.degea9.ui.top.adapter.OnTvAdapter
 import dagger.android.support.DaggerFragment
@@ -54,8 +56,8 @@ class MainFragment : DaggerFragment() {
         rv_on_tv.layoutManager = GridLayoutManager(this.context, 1)
 
         topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
-            rv_on_tv.adapter = OnTvAdapter(it){
-                Log.e("tuandang","show id "+it.id)
+            rv_on_tv.adapter = OnTvAdapter(it) {
+                navigateToDetail(it.id)
             }
 
         })
@@ -63,6 +65,13 @@ class MainFragment : DaggerFragment() {
         topViewModel.onTheaterMovies.observe(viewLifecycleOwner, Observer {
             rv_in_theaters.adapter = InTheatersAdapter(it)
         })
+    }
+
+    fun navigateToDetail(id:Int) {
+        //findNavController(this).navigate(R.id.action_mainFragment_to_showDetailFragment)
+        val intent = Intent(context, ShowDetailActivity::class.java)
+        intent.putExtra(ShowDetailActivity.EXTRA_TVSHOW_ID,id)
+        startActivity(intent)
     }
 
 }
