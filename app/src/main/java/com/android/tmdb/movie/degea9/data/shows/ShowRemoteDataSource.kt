@@ -3,6 +3,8 @@ package com.android.tmdb.movie.degea9.data.shows
 import com.android.tmdb.movie.degea9.data.api.Result
 import com.android.tmdb.movie.degea9.data.api.TmdbService
 import com.android.tmdb.movie.degea9.data.api.model.TVShowResponse
+import com.android.tmdb.movie.degea9.data.database.entity.Cast
+import com.android.tmdb.movie.degea9.data.database.entity.Credit
 import com.android.tmdb.movie.degea9.data.database.entity.TVShow
 import com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail
 import retrofit2.Response
@@ -12,6 +14,22 @@ import javax.inject.Singleton
 
 @Singleton
 class ShowRemoteDataSource @Inject constructor(val service: TmdbService) {
+
+    /**
+     * get tv show detail
+     */
+    suspend fun getCredit(id: Int): Result<Credit> {
+        return try {
+            val response = service.getCredit(id).await()
+            getResult3(response = response, onError = {
+                Result.Error(
+                    IOException("Error getting shows ${response.code()} ${response.message()}")
+                )
+            })
+        } catch (e: Exception) {
+            Result.Error(IOException("Error getting shows", e))
+        }
+    }
 
 
     /**
@@ -80,4 +98,20 @@ class ShowRemoteDataSource @Inject constructor(val service: TmdbService) {
         return onError.invoke()
     }
 
+    /**
+     * get result from response
+     * @return Result data class in case success or onError will be called in other cases
+     */
+    private inline fun getResult3(
+        response: Response<Credit>,
+        onError: () -> Result.Error
+    ): Result<Credit> {
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                return Result.Success(body)
+            }
+        }
+        return onError.invoke()
+    }
 }

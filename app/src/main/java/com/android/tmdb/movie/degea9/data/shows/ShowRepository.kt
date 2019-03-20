@@ -1,6 +1,8 @@
 package com.android.tmdb.movie.degea9.data.shows
 
 import com.android.tmdb.movie.degea9.data.api.Result
+import com.android.tmdb.movie.degea9.data.database.entity.Cast
+import com.android.tmdb.movie.degea9.data.database.entity.Credit
 import com.android.tmdb.movie.degea9.data.database.entity.TVShow
 import com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail
 import javax.inject.Inject
@@ -23,5 +25,9 @@ class ShowRepository @Inject constructor(private val remoteDataSource: ShowRemot
 
     suspend fun getShowDetail(id:Int):Result<TvShowDetail>{
         return remoteDataSource.getShowDetail(id)
+    }
+
+    suspend fun getCredit(id:Int):Result<Credit>{
+        return remoteDataSource.getCredit(id)
     }
 }

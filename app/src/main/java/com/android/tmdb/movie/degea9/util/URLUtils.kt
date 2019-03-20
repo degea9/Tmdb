@@ -10,6 +10,8 @@ class URLUtils{
         fun buildBackDropUrl(backdropPath:String?) = BASE_IMAGE_URL+ SIZE_342_192+backdropPath
 
         fun buildPosterUrl(posterPath:String?) = BASE_IMAGE_URL+SIZE_185_278+posterPath
+
+        fun buildProfileUrl(profilePath:String?) = BASE_IMAGE_URL+SIZE_185_278+profilePath
     }
 
 }

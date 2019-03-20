@@ -2,6 +2,7 @@ package com.android.tmdb.movie.degea9.data.api
 
 import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
 import com.android.tmdb.movie.degea9.data.api.model.TVShowResponse
+import com.android.tmdb.movie.degea9.data.database.entity.Credit
 import com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -126,6 +127,15 @@ interface TmdbService {
         @Path("tv_id") tv_id:Int,
         @Query("language") language: String? = "en-US"
     ): Deferred<Response<TvShowDetail>>
+
+    /**
+     * get Tv show detail
+     */
+    @GET("tv/{tv_id}/credits")
+    fun getCredit(
+        @Path("tv_id") tv_id:Int,
+        @Query("language") language: String? = "en-US"
+    ): Deferred<Response<Credit>>
 
     companion object {
         val BASE_URL = "https://api.themoviedb.org/3/"

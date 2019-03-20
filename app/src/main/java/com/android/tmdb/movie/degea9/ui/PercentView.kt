@@ -36,25 +36,25 @@ class PercentView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         val height = View.MeasureSpec.getSize(heightMeasureSpec)
         val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
         val hightMode = View.MeasureSpec.getMode(heightMeasureSpec)
-        Log.e(
-            "PercentView",
-            "width " + width + " widthMode " + widthMode + " hightMode " + hightMode + " height " + height
-        )
-        if (widthMode == MeasureSpec.EXACTLY) {
-            Log.e("PercentView", "widthMode EXACTLY");
-        } else if (widthMode == MeasureSpec.AT_MOST) {
-            Log.e("PercentView", "widthMode AT_MOST");
-        } else if (widthMode == MeasureSpec.UNSPECIFIED) {
-            Log.e("PercentView", "widthMode UNSPECIFIED");
-        }
-
-        if (hightMode == MeasureSpec.EXACTLY) {
-            Log.e("PercentView", "hightMode EXACTLY");
-        } else if (hightMode == MeasureSpec.AT_MOST) {
-            Log.e("PercentView", "hightMode AT_MOST");
-        } else if (hightMode == MeasureSpec.UNSPECIFIED) {
-            Log.e("PercentView", "hightMode UNSPECIFIED");
-        }
+//        Log.e(
+//            "PercentView",
+//            "width " + width + " widthMode " + widthMode + " hightMode " + hightMode + " height " + height
+//        )
+//        if (widthMode == MeasureSpec.EXACTLY) {
+//            Log.e("PercentView", "widthMode EXACTLY");
+//        } else if (widthMode == MeasureSpec.AT_MOST) {
+//            Log.e("PercentView", "widthMode AT_MOST");
+//        } else if (widthMode == MeasureSpec.UNSPECIFIED) {
+//            Log.e("PercentView", "widthMode UNSPECIFIED");
+//        }
+//
+//        if (hightMode == MeasureSpec.EXACTLY) {
+//            Log.e("PercentView", "hightMode EXACTLY");
+//        } else if (hightMode == MeasureSpec.AT_MOST) {
+//            Log.e("PercentView", "hightMode AT_MOST");
+//        } else if (hightMode == MeasureSpec.UNSPECIFIED) {
+//            Log.e("PercentView", "hightMode UNSPECIFIED");
+//        }
 
         setMeasuredDimension(width, height)
     }
@@ -97,7 +97,7 @@ class PercentView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         val widthText = textPaint.measureText(percentText)
         val aaa = (textPaint.descent() + textPaint.ascent()) / 2
         textPaint.typeface = Typeface.SANS_SERIF
-        Log.e("tuandang","width text "+widthText+ " text size "+textPaint.textSize+ " ascent "+textPaint.ascent()+" descent "+textPaint.descent())
+        //Log.e("tuandang","width text "+widthText+ " text size "+textPaint.textSize+ " ascent "+textPaint.ascent()+" descent "+textPaint.descent())
         canvas.drawText(percentText,width/2f-widthText/2,height/2f-aaa,textPaint)
     }
 

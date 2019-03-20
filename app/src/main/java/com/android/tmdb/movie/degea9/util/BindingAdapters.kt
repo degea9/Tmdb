@@ -43,3 +43,15 @@ fun setPercent(view: PercentView, voteAverage: Double?) {
 
     //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movide_placeholder).into(view)
 }
+
+@BindingAdapter("profile")
+fun setProfile(view: ImageView, profilePath: String?) {
+    profilePath?.let {
+        val requestOptions = RequestOptions()
+        requestOptions.placeholder(R.drawable.ic_profile).error(R.drawable.ic_profile)
+        Glide.with(view.getContext()).setDefaultRequestOptions(requestOptions).load(URLUtils.buildPosterUrl(profilePath))
+            .into(view)
+    }
+
+    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movide_placeholder).into(view)
+}
