@@ -3,9 +3,13 @@ package movietube.tuandang.android.com.movietube.util
 class URLUtils{
     companion object {
         private val BASE_IMAGE_URL = "http://image.tmdb.org/t/p/"
-        private val POSTER_SIZE_W342 = "w342"
+        private val SIZE_342_192 = "w342"
+        private val SIZE_154_231 = "w154"
+        private val SIZE_185_278 = "w185"
 
-        fun buildPosterUrl(posterUrl:String?) = BASE_IMAGE_URL+ POSTER_SIZE_W342+posterUrl
+        fun buildBackDropUrl(backdropPath:String?) = BASE_IMAGE_URL+ SIZE_342_192+backdropPath
+
+        fun buildPosterUrl(posterPath:String?) = BASE_IMAGE_URL+SIZE_185_278+posterPath
     }
 
 }

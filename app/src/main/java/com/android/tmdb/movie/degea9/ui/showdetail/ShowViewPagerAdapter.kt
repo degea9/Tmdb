@@ -17,10 +17,10 @@ class ShowViewPagerAdapter(manager:FragmentManager):FragmentPagerAdapter(manager
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "First Tab"
-            1 -> "Second Tab"
+            0 -> "INFO"
+            1 -> "ACTORS"
             else -> {
-                return "Third Tab"
+                return "SEASONS"
             }
         }
     }

@@ -19,7 +19,7 @@
                 android:id="@+id/poster"
                 app:layout_constraintTop_toTopOf="parent"
                 android:adjustViewBounds="true"
-                app:imageUrl="@{movie.backdropPath}"
+                app:backdropPath="@{movie.backdropPath}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
         <TextView

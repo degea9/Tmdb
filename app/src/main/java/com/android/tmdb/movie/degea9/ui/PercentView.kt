@@ -12,7 +12,7 @@ import android.text.StaticLayout
 import android.text.TextPaint
 
 
-class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class PercentView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     val bgpaint = Paint()
     val bgPaint1 = Paint()
     val spinningPaint = Paint()
@@ -31,29 +31,29 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.e("CircleProgressView", "widthMeasureSpec " + widthMeasureSpec + " heightMeasureSpec " + heightMeasureSpec)
+        Log.e("PercentView", "widthMeasureSpec " + widthMeasureSpec + " heightMeasureSpec " + heightMeasureSpec)
         val width = View.MeasureSpec.getSize(widthMeasureSpec)
         val height = View.MeasureSpec.getSize(heightMeasureSpec)
         val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
         val hightMode = View.MeasureSpec.getMode(heightMeasureSpec)
         Log.e(
-            "CircleProgressView",
+            "PercentView",
             "width " + width + " widthMode " + widthMode + " hightMode " + hightMode + " height " + height
         )
         if (widthMode == MeasureSpec.EXACTLY) {
-            Log.e("CircleProgressView", "widthMode EXACTLY");
+            Log.e("PercentView", "widthMode EXACTLY");
         } else if (widthMode == MeasureSpec.AT_MOST) {
-            Log.e("CircleProgressView", "widthMode AT_MOST");
+            Log.e("PercentView", "widthMode AT_MOST");
         } else if (widthMode == MeasureSpec.UNSPECIFIED) {
-            Log.e("CircleProgressView", "widthMode UNSPECIFIED");
+            Log.e("PercentView", "widthMode UNSPECIFIED");
         }
 
         if (hightMode == MeasureSpec.EXACTLY) {
-            Log.e("CircleProgressView", "hightMode EXACTLY");
+            Log.e("PercentView", "hightMode EXACTLY");
         } else if (hightMode == MeasureSpec.AT_MOST) {
-            Log.e("CircleProgressView", "hightMode AT_MOST");
+            Log.e("PercentView", "hightMode AT_MOST");
         } else if (hightMode == MeasureSpec.UNSPECIFIED) {
-            Log.e("CircleProgressView", "hightMode UNSPECIFIED");
+            Log.e("PercentView", "hightMode UNSPECIFIED");
         }
 
         setMeasuredDimension(width, height)
@@ -63,7 +63,7 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
         bgpaint.color = Color.parseColor("#204529")
         bgpaint.isAntiAlias = true
         bgpaint.style = Paint.Style.STROKE
-        bgpaint.strokeWidth = 20f
+        bgpaint.strokeWidth = width/12f
 
         bgPaint1.color = Color.parseColor("#071d25")
         bgPaint1.isAntiAlias = true
@@ -72,7 +72,7 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
         spinningPaint.color = Color.parseColor("#21d07a")
         spinningPaint.isAntiAlias = true
         spinningPaint.style = Paint.Style.STROKE
-        spinningPaint.strokeWidth = 20f
+        spinningPaint.strokeWidth = width/12f
 
         textPaint.color = Color.WHITE
         textPaint.isAntiAlias = true
@@ -80,10 +80,10 @@ class CircleProgressView(context: Context, attrs: AttributeSet) : View(context, 
         textPaint.strokeWidth = 20f
         textPaint.textSize = width/3f
         canvas.drawCircle(width / 2f, height / 2f, width / 2f, bgPaint1)
-        canvas.drawCircle(width / 2f, height / 2f, width / 2f-20, bgpaint)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f-10, bgpaint)
         val center_x = width / 2f
         val center_y = height / 2f
-        val radius = width / 2f-20
+        val radius = width / 2f-10
 
         val left = center_x - radius
         val top = center_y - radius
