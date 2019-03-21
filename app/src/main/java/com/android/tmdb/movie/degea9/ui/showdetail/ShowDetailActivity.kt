@@ -1,7 +1,9 @@
 package com.android.tmdb.movie.degea9.ui.showdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,6 +39,11 @@ class ShowDetailActivity : DaggerAppCompatActivity() {
         tvShowDetailViewModel.tvShowDetail.observe(this, Observer {
             binding.show = it
             supportActionBar?.title = it.name
+        })
+
+        tvShowDetailViewModel.showLoading.observe(this, Observer {
+            Log.e("tuandang","tvShowDetailViewModel showLoading onChange "+it)
+           progressbar.visibility = if(it) View.VISIBLE else View.GONE
         })
         if (intent.hasExtra(EXTRA_TVSHOW_ID)) {
             tvShowDetailViewModel.loadTvShow(intent.getIntExtra(EXTRA_TVSHOW_ID, 0))

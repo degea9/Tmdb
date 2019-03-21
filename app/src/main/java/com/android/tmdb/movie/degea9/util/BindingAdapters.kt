@@ -55,3 +55,8 @@ fun setProfile(view: ImageView, profilePath: String?) {
 
     //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movide_placeholder).into(view)
 }
+
+@BindingAdapter("setVisibility")
+ fun<T:Any> setVisibility(view: View, data: T?) {
+    data?.let { view.visibility = View.GONE } ?: run{view.visibility = View.VISIBLE}
+}

@@ -19,7 +19,9 @@ class TvShowDetailViewModel @Inject constructor(
     private val showRepository: ShowRepository
 ) : ViewModel() {
 
-
+    private val _showLoading = MutableLiveData<Boolean>()
+    val showLoading: LiveData<Boolean>
+        get() = _showLoading
     private val _tvShowDetail = MutableLiveData<TvShowDetail>()
     val tvShowDetail: LiveData<TvShowDetail>
         get() = _tvShowDetail
@@ -34,18 +36,25 @@ class TvShowDetailViewModel @Inject constructor(
     }
 
 
-    fun loadTvShow(id:Int){
+    fun loadTvShow(id: Int) {
         viewModelScope.launch(Dispatchers.Default) {
+            _showLoading.postValue(true)
             val results = showRepository.getShowDetail(id)
-            if (results is Result.Success)
-                withContext(Dispatchers.Main) {
+            when(results){
+                is Result.Success -> withContext(Dispatchers.Main) {
+                    _showLoading.value = false
                     _tvShowDetail.value = results.data
                 }
-            else Log.e("degea9", "api error ");
+
+                is Result.Error -> {
+                    _showLoading.postValue(false)
+                    Log.e("degea9", "TvShowDetailViewModel loadTvShow api error ");
+                }
+            }
         }
     }
 
-    fun getCredit(id:Int){
+    fun getCredit(id: Int) {
         viewModelScope.launch(Dispatchers.Default) {
             val results = showRepository.getCredit(id)
             if (results is Result.Success)

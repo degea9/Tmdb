@@ -5,6 +5,7 @@
     <data>
         <variable name="show" type="com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail"></variable>
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/htab_maincontent"
             android:layout_width="match_parent"
@@ -70,7 +71,7 @@
                             android:id="@+id/poster"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/margin_space"
-                    android:layout_marginStart="16dp"/>
+                            android:layout_marginStart="16dp"/>
                     <TextView
                             android:text="@{show.name}"
                             android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/backdrop" android:layout_marginBottom="8dp"
                             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.1"
                             app:layout_constraintVertical_bias="0.114"
-                            />
+                    />
 
 
                     <com.android.tmdb.movie.degea9.ui.PercentView
@@ -103,11 +104,11 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!--<View-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:alpha="0.3"-->
-                        <!--android:background="@android:color/black"-->
-                        <!--android:fitsSystemWindows="true"/>-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:alpha="0.3"-->
+                <!--android:background="@android:color/black"-->
+                <!--android:fitsSystemWindows="true"/>-->
 
                 <androidx.appcompat.widget.Toolbar
                         android:id="@+id/htab_toolbar"
@@ -129,14 +130,20 @@
                     app:tabTextColor="@android:color/white"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewpager"
-                    android:layout_width="match_parent"
-                    android:background="@android:color/darker_gray"
-                    android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    />
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:background="@android:color/darker_gray"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
+        <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+        />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
