@@ -1,5 +1,6 @@
 package com.android.tmdb.movie.degea9.data.database.entity
 
+import com.android.tmdb.movie.degea9.data.api.DataResponse
 import com.google.gson.annotations.SerializedName
 
 data class TvShowDetail(
@@ -59,7 +60,9 @@ data class TvShowDetail(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-) {
+):DataResponse<TvShowDetail> {
+    override fun retrieveData() = this
+
     data class Season(
         @SerializedName("air_date")
         val airDate: String,

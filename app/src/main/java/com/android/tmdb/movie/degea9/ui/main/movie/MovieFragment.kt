@@ -1,21 +1,19 @@
-package com.android.tmdb.movie.degea9.ui.top
+package com.android.tmdb.movie.degea9.ui.main.movie
 
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.databinding.FragmentMainBinding
+import com.android.tmdb.movie.degea9.ui.main.TmdbViewModelFactory
+import com.android.tmdb.movie.degea9.ui.main.TopViewModel
+import com.android.tmdb.movie.degea9.ui.main.movie.adapter.MovieViewPagerAdapter
 import com.android.tmdb.movie.degea9.ui.showdetail.ShowDetailActivity
-import com.android.tmdb.movie.degea9.ui.top.adapter.InTheatersAdapter
-import com.android.tmdb.movie.degea9.ui.top.adapter.OnTvAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
@@ -49,22 +47,28 @@ class MainFragment : DaggerFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        vp_movies.adapter = MovieViewPagerAdapter(childFragmentManager)
+        tabs.setupWithViewPager(vp_movies)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         topViewModel = ViewModelProviders.of(this, viewModelFactory).get(TopViewModel::class.java)
-        rv_in_theaters.layoutManager = GridLayoutManager(this.context, 1)
-        rv_on_tv.layoutManager = GridLayoutManager(this.context, 1)
-
-        topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
-            rv_on_tv.adapter = OnTvAdapter(it) {
-                navigateToDetail(it.id)
-            }
-
-        })
-
-        topViewModel.onTheaterMovies.observe(viewLifecycleOwner, Observer {
-            rv_in_theaters.adapter = InTheatersAdapter(it)
-        })
+//        rv_in_theaters.layoutManager = GridLayoutManager(this.context, 1)
+//        rv_on_tv.layoutManager = GridLayoutManager(this.context, 1)
+//
+//        topViewModel.broadcastingShows.observe(viewLifecycleOwner, Observer {
+//            rv_on_tv.adapter = OnTvAdapter(it) {
+//                navigateToDetail(it.id)
+//            }
+//
+//        })
+//
+//        topViewModel.onTheaterMovies.observe(viewLifecycleOwner, Observer {
+//            rv_in_theaters.adapter = InTheatersAdapter(it)
+//        })
     }
 
     fun navigateToDetail(id:Int) {

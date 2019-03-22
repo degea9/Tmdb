@@ -1,5 +1,7 @@
 package com.android.tmdb.movie.degea9.data.database.entity
 
+import androidx.room.Entity
+import com.android.tmdb.movie.degea9.data.api.DataResponse
 import com.google.gson.annotations.SerializedName
 
 data class TVShow(
@@ -31,4 +33,6 @@ data class TVShow(
     @SerializedName("poster_path")
     val posterPath: String
 
-)
+):DataResponse<TVShow> {
+    override fun retrieveData(): TVShow = this
+}

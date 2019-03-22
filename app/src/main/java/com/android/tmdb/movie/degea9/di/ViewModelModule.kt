@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.tmdb.movie.degea9.di.customkey.ViewModelKey
 import com.android.tmdb.movie.degea9.ui.showdetail.TvShowDetailViewModel
-import com.android.tmdb.movie.degea9.ui.top.TopViewModel
-import com.android.tmdb.movie.degea9.ui.top.TmdbViewModelFactory
+import com.android.tmdb.movie.degea9.ui.main.TopViewModel
+import com.android.tmdb.movie.degea9.ui.main.TmdbViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

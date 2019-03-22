@@ -33,7 +33,6 @@ class ActorsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_actors, container, false)
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rv_actors.layoutManager = GridLayoutManager(context,1)

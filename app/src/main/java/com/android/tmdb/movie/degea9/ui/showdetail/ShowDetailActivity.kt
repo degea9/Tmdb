@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.databinding.ActivityShowDetailBinding
 import com.android.tmdb.movie.degea9.ui.showdetail.adapter.ShowViewPagerAdapter
-import com.android.tmdb.movie.degea9.ui.top.TmdbViewModelFactory
+import com.android.tmdb.movie.degea9.ui.main.TmdbViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_show_detail.*
 import javax.inject.Inject

@@ -1,6 +1,5 @@
-package com.android.tmdb.movie.degea9.ui.top.adapter
+package com.android.tmdb.movie.degea9.ui.main.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

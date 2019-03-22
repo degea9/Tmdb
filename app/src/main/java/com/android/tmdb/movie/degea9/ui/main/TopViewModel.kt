@@ -1,4 +1,4 @@
-package com.android.tmdb.movie.degea9.ui.top
+package com.android.tmdb.movie.degea9.ui.main
 
 import android.util.Log
 import androidx.lifecycle.LiveData
