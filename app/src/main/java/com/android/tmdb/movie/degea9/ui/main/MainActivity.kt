@@ -1,4 +1,4 @@
-package com.android.tmdb.movie.degea9.ui
+package com.android.tmdb.movie.degea9.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem

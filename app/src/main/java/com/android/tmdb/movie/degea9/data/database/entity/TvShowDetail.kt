@@ -60,7 +60,7 @@ data class TvShowDetail(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-):DataResponse<TvShowDetail> {
+) : DataResponse<TvShowDetail> {
     override fun retrieveData() = this
 
     data class Season(
@@ -80,12 +80,6 @@ data class TvShowDetail(
         val seasonNumber: Int
     )
 
-    data class Genre(
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("name")
-        val name: String
-    )
 
     data class Network(
         @SerializedName("name")

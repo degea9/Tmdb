@@ -7,16 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import com.android.tmdb.movie.degea9.R
-import com.android.tmdb.movie.degea9.databinding.FragmentMainBinding
-import com.android.tmdb.movie.degea9.ui.main.TmdbViewModelFactory
-import com.android.tmdb.movie.degea9.ui.main.TopViewModel
+import com.android.tmdb.movie.degea9.databinding.FragmentMovieBinding
 import com.android.tmdb.movie.degea9.ui.main.movie.adapter.MovieViewPagerAdapter
 import com.android.tmdb.movie.degea9.ui.showdetail.ShowDetailActivity
+import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_main.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_movie.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,34 +26,33 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class MainFragment : DaggerFragment() {
+class MovieFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: TmdbViewModelFactory
 
-    lateinit var topViewModel: TopViewModel
-    lateinit var binding: FragmentMainBinding
+    lateinit var binding: FragmentMovieBinding
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie, container, false)
         binding.setLifecycleOwner(viewLifecycleOwner)
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        vp_movies.adapter = MovieViewPagerAdapter(childFragmentManager)
-        tabs.setupWithViewPager(vp_movies)
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        vp_movies.adapter = MovieViewPagerAdapter(childFragmentManager)
+//        tab_layout.setupWithViewPager(vp_movies)
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        topViewModel = ViewModelProviders.of(this, viewModelFactory).get(TopViewModel::class.java)
+        vp_movies.offscreenPageLimit = 0
+        vp_movies.adapter = MovieViewPagerAdapter(context!!,childFragmentManager)
+        activity?.findViewById<TabLayout>(R.id.tab_layout)?.setupWithViewPager(vp_movies)
 //        rv_in_theaters.layoutManager = GridLayoutManager(this.context, 1)
 //        rv_on_tv.layoutManager = GridLayoutManager(this.context, 1)
 //
@@ -66,15 +63,12 @@ class MainFragment : DaggerFragment() {
 //
 //        })
 //
-//        topViewModel.onTheaterMovies.observe(viewLifecycleOwner, Observer {
-//            rv_in_theaters.adapter = InTheatersAdapter(it)
-//        })
     }
 
-    fun navigateToDetail(id:Int) {
+    fun navigateToDetail(id: Int) {
         //findNavController(this).navigate(R.id.action_mainFragment_to_showDetailFragment)
         val intent = Intent(context, ShowDetailActivity::class.java)
-        intent.putExtra(ShowDetailActivity.EXTRA_TVSHOW_ID,id)
+        intent.putExtra(ShowDetailActivity.EXTRA_TVSHOW_ID, id)
         startActivity(intent)
     }
 

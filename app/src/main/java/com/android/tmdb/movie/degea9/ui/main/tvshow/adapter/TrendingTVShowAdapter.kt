@@ -1,4 +1,4 @@
-package com.android.tmdb.movie.degea9.ui.main.adapter
+package com.android.tmdb.movie.degea9.ui.main.tvshow.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +10,8 @@ import com.android.tmdb.movie.degea9.data.database.entity.TVShow
 import com.android.tmdb.movie.degea9.databinding.AiringTvShowBinding
 
 internal typealias OnClick = (show: TVShow) -> Unit
-class OnTvAdapter(private var tvshows: List<TVShow>,private val onClick: OnClick) : RecyclerView.Adapter<OnTvAdapter.OnTvShowHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnTvAdapter.OnTvShowHolder {
+class TrendingTVShowAdapter(private var tvshows: List<TVShow>) : RecyclerView.Adapter<TrendingTVShowAdapter.OnTvShowHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnTvShowHolder {
         return OnTvShowHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -26,9 +26,9 @@ class OnTvAdapter(private var tvshows: List<TVShow>,private val onClick: OnClick
 
     override fun onBindViewHolder(holder: OnTvShowHolder, position: Int) {
         holder.bind(tvshows[position])
-        View.OnClickListener { tvshows[position].let { onClick(it) } }.apply {
-            holder.setOnClickListener(this)
-        }
+//        View.OnClickListener { tvshows[position].let { onClick(it) } }.apply {
+//            holder.setOnClickListener(this)
+//        }
     }
 
     class OnTvShowHolder(val binding: AiringTvShowBinding) : RecyclerView.ViewHolder(binding.root) {

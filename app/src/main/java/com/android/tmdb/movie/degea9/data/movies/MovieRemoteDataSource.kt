@@ -5,6 +5,8 @@ import com.android.tmdb.movie.degea9.data.api.Result
 import com.android.tmdb.movie.degea9.data.api.TmdbService
 import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
 import com.android.tmdb.movie.degea9.data.database.entity.Movie
+import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
+import com.android.tmdb.movie.degea9.util.safeApiCall
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
@@ -17,51 +19,46 @@ import javax.inject.Singleton
 class MovieRemoteDataSource @Inject constructor(val service: TmdbService) {
 
     /**
-     * get trending movies
+     * get nowp laying movies
      */
-    suspend fun getNowPlayingMovies(): Result<List<Movie>> {
-        return try {
-            val response = service.getPlayingMovies().await()
-            getResult(response = response, onError = {
-                Result.Error(
-                    IOException("Error getting movies ${response.code()} ${response.message()}")
-                )
-            })
-        } catch (e: Exception) {
-            Result.Error(IOException("Error getting movies", e))
-        }
-    }
+    suspend fun getNowPlayingMovies(): Result<List<Movie>> =
+        safeApiCall(service.getPlayingMovies(), errorMessage = "Error getting now playing movies")
 
     /**
      * get trending movies
      */
-    suspend fun getTrendingMovies(): Result<List<Movie>> {
-        return try {
-            val response = service.getTrendingMovies().await()
-            getResult(response = response, onError = {
-                Result.Error(
-                    IOException("Error getting movies ${response.code()} ${response.message()}")
-                )
-            })
-        } catch (e: Exception) {
-            Result.Error(IOException("Error getting movies", e))
-        }
-    }
+    suspend fun getTrendingMovies(): Result<List<Movie>> =
+        safeApiCall(service.getTrendingMovies(), errorMessage = "Error getting trending movies")
 
     /**
-     * get result from response
-     * @return Result data class in case success or onError will be called in other cases
+     * get popular movies
      */
-    private inline fun getResult(
-        response: Response<MovieResponse>,
-        onError: () -> Result.Error
-    ): Result<List<Movie>> {
-        if (response.isSuccessful) {
-            val body = response.body()
-            if (body != null) {
-                return Result.Success(body.results)
-            }
-        }
-        return onError.invoke()
-    }
+    suspend fun getPopularMovies(): Result<List<Movie>> =
+        safeApiCall(service.getPopularMovies(), errorMessage = "Error getting popular movies")
+
+    /**
+     * get top rated movies
+     */
+    suspend fun getTopRatedMovies(): Result<List<Movie>> =
+        safeApiCall(service.getTopRatedMovies(), errorMessage = "Error getting top rated movies")
+
+    /**
+     * get top rated movies
+     */
+    suspend fun getUpComingMovies(): Result<List<Movie>> =
+        safeApiCall(service.getUpComingMovies(), errorMessage = "Error getting up coming movies")
+
+    /**
+     * get the latest movies
+     */
+    suspend fun getLatestMovies(): Result<List<Movie>> =
+        safeApiCall(service.getLatestMovies(), errorMessage = "Error getting latest movies")
+
+    /**
+     * get movie detail
+     */
+    suspend fun getMovieDetail(id:Int): Result<MovieDetail> =
+        safeApiCall(service.getMovieDetail(id), errorMessage = "Error getting movie detail")
+
+
 }

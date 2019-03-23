@@ -3,6 +3,7 @@ package com.android.tmdb.movie.degea9.data.api
 import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
 import com.android.tmdb.movie.degea9.data.api.model.TVShowResponse
 import com.android.tmdb.movie.degea9.data.database.entity.Credit
+import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
 import com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -101,6 +102,14 @@ interface TmdbService {
     ): Deferred<Response<MovieResponse>>
 
     /**
+     * get latest movies
+     */
+    @GET("movie/latest")
+    fun getLatestMovies(
+        @Query("language") language: String? = "en-US"
+    ): Deferred<Response<MovieResponse>>
+
+    /**
      * discover movies
      */
     @GET("discover/movie")
@@ -124,21 +133,38 @@ interface TmdbService {
      */
     @GET("tv/{tv_id}")
     fun getShowDetail(
-        @Path("tv_id") tv_id:Int,
+        @Path("tv_id") tv_id: Int,
         @Query("language") language: String? = "en-US"
     ): Deferred<Response<TvShowDetail>>
 
     /**
-     * get Tv show detail
+     * get movie  detail
+     */
+    @GET("movie/{movie_id}")
+    fun getMovieDetail(
+        @Path("movie_id") movie_id: Int,
+        @Query("language") language: String? = "en-US",
+        @Query("append_to_response") append_to_response: String? = null
+    ): Deferred<Response<MovieDetail>>
+
+    /**
+     * get Tv show credit
      */
     @GET("tv/{tv_id}/credits")
     fun getCredit(
-        @Path("tv_id") tv_id:Int,
+        @Path("tv_id") tv_id: Int,
         @Query("language") language: String? = "en-US"
     ): Deferred<Response<Credit>>
 
     companion object {
         val BASE_URL = "https://api.themoviedb.org/3/"
+        val NOW_PLAYING_MOVIE = 0
+        val TRENDING_MOVIE = 1
+        val POPULAR_MOVIE = 2
+        val TOP_RATED_MOVIE = 3
+        val UP_COMING_MOVIE = 4
+        val LATEST_MOVIE = 5
     }
+
 
 }

@@ -24,4 +24,12 @@
         <item name="android:layout_marginTop">4dp</item>
     </style>
 
+    <!--style for favorite,rating,watch vector drawable-->
+    <style name="vector_ripple">
+        <item name="android:padding">8dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
 </resources>
