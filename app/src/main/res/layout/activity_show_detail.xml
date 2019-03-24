@@ -39,7 +39,7 @@
                             android:id="@+id/backdrop"
                             android:layout_width="match_parent"
                             android:layout_height="220dp"
-                            android:src="@drawable/movide_placeholder"
+                            android:src="@drawable/movie_placeholder"
                             android:scaleType="centerCrop"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

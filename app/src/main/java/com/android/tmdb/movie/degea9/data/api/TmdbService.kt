@@ -1,6 +1,7 @@
 package com.android.tmdb.movie.degea9.data.api
 
 import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
+import com.android.tmdb.movie.degea9.data.api.model.ReviewResponse
 import com.android.tmdb.movie.degea9.data.api.model.TVShowResponse
 import com.android.tmdb.movie.degea9.data.database.entity.Credit
 import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
@@ -146,6 +147,16 @@ interface TmdbService {
         @Query("language") language: String? = "en-US",
         @Query("append_to_response") append_to_response: String? = null
     ): Deferred<Response<MovieDetail>>
+
+    /**
+     * get movie  reviews
+     */
+    @GET("movie/{movie_id}/reviews")
+    fun getMovieReviews(
+        @Path("movie_id") movie_id: Int,
+        @Query("language") language: String? = "en-US",
+        @Query("page") page: Int? = 1
+    ): Deferred<Response<ReviewResponse>>
 
     /**
      * get Tv show credit

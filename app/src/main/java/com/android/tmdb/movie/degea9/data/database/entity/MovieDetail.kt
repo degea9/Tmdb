@@ -19,6 +19,7 @@ data class MovieDetail(
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
     val release_date: String,
+    val release_dates: ReleaseDates,
     val revenue: Int,
     val runtime: Int,
     val spoken_languages: List<SpokenLanguage>,
@@ -27,7 +28,8 @@ data class MovieDetail(
     val title: String,
     val video: Boolean,
     val vote_average: Double,
-    val vote_count: Int
-):DataResponse<MovieDetail> {
+    val vote_count: Int,
+    val credits: Credit
+) : DataResponse<MovieDetail> {
     override fun retrieveData(): MovieDetail = this
 }

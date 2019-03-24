@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="review" type="com.android.tmdb.movie.degea9.data.database.entity.Review"></variable>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="70dp" android:layout_height="70dp"
+                   app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                   android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                   android:id="@+id/firstLetter"/>
+        <TextView
+                android:text="@{review.author}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/name" app:layout_constraintStart_toEndOf="@+id/firstLetter"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed-light"/>
+        <TextView
+                android:text="@{review.content}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/content" app:layout_constraintStart_toStartOf="@+id/firstLetter"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/firstLetter"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-condensed-light"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,14 +1,11 @@
 package com.android.tmdb.movie.degea9.data.movies
 
-import android.util.Log
 import com.android.tmdb.movie.degea9.data.api.Result
 import com.android.tmdb.movie.degea9.data.api.TmdbService
-import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
 import com.android.tmdb.movie.degea9.data.database.entity.Movie
 import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
+import com.android.tmdb.movie.degea9.data.database.entity.Review
 import com.android.tmdb.movie.degea9.util.safeApiCall
-import retrofit2.Response
-import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -58,7 +55,12 @@ class MovieRemoteDataSource @Inject constructor(val service: TmdbService) {
      * get movie detail
      */
     suspend fun getMovieDetail(id:Int): Result<MovieDetail> =
-        safeApiCall(service.getMovieDetail(id), errorMessage = "Error getting movie detail")
+        safeApiCall(service.getMovieDetail(id,append_to_response = "release_dates,credits"), errorMessage = "Error getting movie detail")
 
 
+    /**
+     * get movie reviews
+     */
+    suspend fun getMovieReview(movieId:Int): Result<List<Review>> =
+        safeApiCall(service.getMovieReviews(movieId), errorMessage = "Error getting movie reviews")
 }

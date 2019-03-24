@@ -1,11 +1,13 @@
 package com.android.tmdb.movie.degea9.util
 
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.android.tmdb.movie.degea9.R
+import com.android.tmdb.movie.degea9.data.database.entity.Genre
+import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
 import com.android.tmdb.movie.degea9.ui.PercentView
 import com.android.tmdb.movie.degea9.util.GenreUtils.Companion.movieGenreMap
 import com.bumptech.glide.Glide
@@ -18,12 +20,12 @@ import movietube.tuandang.android.com.movietube.util.URLUtils
 fun setBackdropPath(view: ImageView, path: String?) {
     path?.let {
         val requestOptions = RequestOptions()
-        requestOptions.placeholder(R.drawable.movide_placeholder).error(R.drawable.movide_placeholder)
+        requestOptions.placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder)
         Glide.with(view.getContext()).setDefaultRequestOptions(requestOptions).load(URLUtils.buildBackDropUrl(path))
             .into(view)
     }
 
-    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movide_placeholder).into(view)
+    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movie_placeholder).into(view)
 }
 
 @BindingAdapter("posterPath")
@@ -37,7 +39,7 @@ fun setPosterPath(view: ImageView, path: String?) {
 //            .into(view)
     }
 
-    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movide_placeholder).into(view)
+    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movie_placeholder).into(view)
 }
 
 @BindingAdapter("percent")
@@ -59,7 +61,7 @@ fun setProfile(view: ImageView, profilePath: String?) {
             .into(view)
     }
 
-    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movide_placeholder).into(view)
+    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movie_placeholder).into(view)
 }
 
 @BindingAdapter("setVisibility")
@@ -68,10 +70,40 @@ fun <T : Any> setVisibility(view: View, data: T?) {
 }
 
 @BindingAdapter("setGenreName")
-fun <T : Any> setGenreName(view: TextView, genreIds: List<Int>?) {
+fun setGenreName(view: TextView, genreIds: List<Int>?) {
     genreIds?.let {
         view.setText(movieGenreMap.filter { genreIds.contains(it.key) }.values.toSet().joinToString())
     }
 }
 
+@BindingAdapter("setGenreName2")
+fun setGenreName2(view: TextView, genre: List<Genre>?) {
+    genre?.let {
+        view.setText(genre.map { genre -> genre.name }.joinToString())
+    }
+}
 
+@BindingAdapter("runtime")
+fun setRuntime(view: TextView, movie: MovieDetail?) {
+    movie?.let {
+        view.setText(Utils.convertRuntime(movie))
+    }
+}
+
+@BindingAdapter("setCertification")
+fun setCertification(view: TextView, movie: MovieDetail?) {
+    movie?.let {
+        val certification = Utils.findCertification("US", movie)
+        view.visibility = if (!TextUtils.isEmpty(certification)) {
+            view.setText(certification)
+            View.VISIBLE
+        } else View.GONE
+    }
+}
+
+@BindingAdapter("setDirectorText")
+fun setDirectorText(view: TextView, movie: MovieDetail?) {
+    movie?.let {
+        view.text = movie.credits.crew.filter { "Director".equals(it.job) }.map { it.name }.joinToString()
+    }
+}

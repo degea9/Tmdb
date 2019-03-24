@@ -108,4 +108,7 @@ dependencies {
 
     //circle imageview
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //circle first character,text drawable
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }
