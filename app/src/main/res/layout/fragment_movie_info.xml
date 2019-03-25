@@ -4,7 +4,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="java.lang.Integer"/>
 
         <variable name="movie" type="com.android.tmdb.movie.degea9.data.database.entity.MovieDetail"></variable>
     </data>
@@ -13,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:background="@color/movie_info_background"
             tools:context=".ui.moviedetail.MovieInfoFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"

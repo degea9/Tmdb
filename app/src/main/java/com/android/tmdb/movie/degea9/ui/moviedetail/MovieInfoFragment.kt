@@ -2,7 +2,6 @@ package com.android.tmdb.movie.degea9.ui.moviedetail
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.databinding.FragmentMovieInfoBinding
 import com.android.tmdb.movie.degea9.ui.moviedetail.adapter.TrailerAdapter
-import com.android.tmdb.movie.degea9.ui.showdetail.TvShowDetailViewModel
 import kotlinx.android.synthetic.main.fragment_movie_info.*
 
 
@@ -24,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_movie_info.*
  *
  */
 class MovieInfoFragment : Fragment() {
-    lateinit var binding:FragmentMovieInfoBinding
+    lateinit var binding: FragmentMovieInfoBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +39,10 @@ class MovieInfoFragment : Fragment() {
 
         movieDetailViewModel.movieDetail.observe(viewLifecycleOwner, Observer {
             binding.movie = it
-            rv_movie_trailers.adapter =  TrailerAdapter(it.video)
+            rv_movie_trailers.adapter =  TrailerAdapter(it.videos.results)
         })
+
+
     }
 
 }

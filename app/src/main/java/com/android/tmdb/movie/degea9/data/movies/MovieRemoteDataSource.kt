@@ -56,7 +56,7 @@ class MovieRemoteDataSource @Inject constructor(val service: TmdbService) {
      * get movie detail
      */
     suspend fun getMovieDetail(id:Int): Result<MovieDetail> =
-        safeApiCall(service.getMovieDetail(id,append_to_response = "release_dates,credits"), errorMessage = "Error getting movie detail")
+        safeApiCall(service.getMovieDetail(id,append_to_response = "release_dates,credits,videos"), errorMessage = "Error getting movie detail")
 
 
     /**

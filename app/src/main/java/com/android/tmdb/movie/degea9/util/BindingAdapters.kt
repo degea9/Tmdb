@@ -33,14 +33,19 @@ fun setPosterPath(view: ImageView, path: String?) {
     path?.let {
         Picasso.get().load(URLUtils.buildPosterUrl(path)).fit().centerCrop()
             .placeholder(R.drawable.poster_placeholder).error(R.drawable.poster_placeholder).into(view)
-//        val requestOptions = RequestOptions()
-//        requestOptions.placeholder(R.drawable.poster_placeholder).error(R.drawable.poster_placeholder)
-//        Glide.with(view.getContext()).setDefaultRequestOptions(requestOptions).load(URLUtils.buildPosterUrl(path))
-//            .into(view)
     }
 
-    //Picasso.get().load(URLUtils.buildBackDropUrl(url)).placeholder(R.drawable.movie_placeholder).into(view)
 }
+
+@BindingAdapter("youtubeThumbnail")
+fun setYoutubeThumbnail(view: ImageView, key: String?) {
+    key?.let {
+        Picasso.get().load(URLUtils.buildYoutubeThumbnail(key))
+            .placeholder(R.drawable.poster_placeholder).error(R.drawable.poster_placeholder).into(view)
+    }
+
+}
+
 
 @BindingAdapter("percent")
 fun setPercent(view: PercentView, voteAverage: Double?) {

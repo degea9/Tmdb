@@ -1,6 +1,7 @@
 package com.android.tmdb.movie.degea9.data.database.entity
 
 import com.android.tmdb.movie.degea9.data.api.DataResponse
+import com.android.tmdb.movie.degea9.data.api.model.VideoResponse
 
 data class MovieDetail(
     val adult: Boolean,
@@ -29,7 +30,8 @@ data class MovieDetail(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int,
-    val credits: Credit
+    val credits: Credit,
+    val videos: VideoResponse
 ) : DataResponse<MovieDetail> {
     override fun retrieveData(): MovieDetail = this
 }

@@ -32,10 +32,6 @@ class MovieDetailViewModel @Inject constructor(
     val reviews: LiveData<List<Review>>
         get() = _reviews
 
-    /**video livedata **/
-    private val _videos = MutableLiveData<List<Video>>()
-    val videos: LiveData<List<Video>>
-        get() = _videos
 
     /**
      * load movie detail by id
@@ -51,7 +47,7 @@ class MovieDetailViewModel @Inject constructor(
                         isLoaded = true
                         _showLoading.value = false
                         _movieDetail.value = results.data
-                        if(!results.data.video) loadVideos()
+
                     }
 
                     is Result.Error -> {
@@ -79,20 +75,6 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    /**
-     * load videos
-     */
-    fun loadVideos(){
-        if (movieId != -1) {
-            viewModelScope.launch(Dispatchers.Default) {
-                val results = movieRepository.getVideos(movieId)
-                if (results is Result.Success)
-                    withContext(Dispatchers.Main) {
-                        _videos.value = results.data
-                    }
-                else Log.e("degea9", "api error ");
-            }
-        }
-    }
+
 
 }

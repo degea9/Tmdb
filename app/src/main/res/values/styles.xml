@@ -19,8 +19,8 @@
     <style name="facts_title">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/fact_title</item>
         <item name="android:layout_marginTop">4dp</item>
-        <item name="android:fontFamily">monospace</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
     </style>
@@ -28,9 +28,9 @@
     <style name="facts_content">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginTop">4dp</item>
-        <item name="android:fontFamily">monospace</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textColor">@color/fact_content</item>
     </style>
 
     <!--style for favorite,rating,watch vector drawable-->
