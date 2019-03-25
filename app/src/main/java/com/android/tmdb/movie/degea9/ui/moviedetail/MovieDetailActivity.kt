@@ -42,13 +42,11 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         movieDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieDetailViewModel::class.java)
         movieDetailViewModel.movieDetail.observe(this, Observer {
-            Log.e("tuandang", "movieDetailViewModel movieDetail onChange " + it)
             binding.movie = it
             //supportActionBar?.title = it.title
         })
 
         movieDetailViewModel.showLoading.observe(this, Observer {
-            Log.e("tuandang", "movieDetailViewModel showLoading onChange " + it)
             binding.progressbar.visibility = if(it) View.VISIBLE else View.GONE
         })
         if (intent.hasExtra(EXTRA_MOVIE_ID)) {

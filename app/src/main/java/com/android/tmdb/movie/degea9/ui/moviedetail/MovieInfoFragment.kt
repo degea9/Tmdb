@@ -10,15 +10,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.android.tmdb.movie.degea9.R
 import com.android.tmdb.movie.degea9.databinding.FragmentMovieInfoBinding
+import com.android.tmdb.movie.degea9.ui.moviedetail.adapter.TrailerAdapter
 import com.android.tmdb.movie.degea9.ui.showdetail.TvShowDetailViewModel
+import kotlinx.android.synthetic.main.fragment_movie_info.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -43,7 +42,7 @@ class MovieInfoFragment : Fragment() {
 
         movieDetailViewModel.movieDetail.observe(viewLifecycleOwner, Observer {
             binding.movie = it
-            //supportActionBar?.title = it.title
+            rv_movie_trailers.adapter =  TrailerAdapter(it.video)
         })
     }
 

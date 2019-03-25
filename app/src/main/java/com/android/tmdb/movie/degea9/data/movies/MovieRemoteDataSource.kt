@@ -5,6 +5,7 @@ import com.android.tmdb.movie.degea9.data.api.TmdbService
 import com.android.tmdb.movie.degea9.data.database.entity.Movie
 import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
 import com.android.tmdb.movie.degea9.data.database.entity.Review
+import com.android.tmdb.movie.degea9.data.database.entity.Video
 import com.android.tmdb.movie.degea9.util.safeApiCall
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -63,4 +64,10 @@ class MovieRemoteDataSource @Inject constructor(val service: TmdbService) {
      */
     suspend fun getMovieReview(movieId:Int): Result<List<Review>> =
         safeApiCall(service.getMovieReviews(movieId), errorMessage = "Error getting movie reviews")
+
+    /**
+     * get movie videos
+     */
+    suspend fun getMovieVideos(movieId:Int): Result<List<Video>> =
+        safeApiCall(service.getMovieVideos(movieId), errorMessage = "Error getting movie reviews")
 }

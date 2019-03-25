@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.android.tmdb.movie.degea9.data.api.Result
 import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
 import com.android.tmdb.movie.degea9.data.database.entity.Review
+import com.android.tmdb.movie.degea9.data.database.entity.Video
 import com.android.tmdb.movie.degea9.data.movies.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,15 +27,19 @@ class MovieDetailViewModel @Inject constructor(
     val movieDetail: LiveData<MovieDetail>
         get() = _movieDetail
 
+    /** review livedata **/
     private val _reviews = MutableLiveData<List<Review>>()
     val reviews: LiveData<List<Review>>
         get() = _reviews
 
-    init {
+    /**video livedata **/
+    private val _videos = MutableLiveData<List<Video>>()
+    val videos: LiveData<List<Video>>
+        get() = _videos
 
-
-    }
-
+    /**
+     * load movie detail by id
+     */
     fun loadMovie(id: Int) {
         movieId = id
         if (!isLoaded) {
@@ -46,6 +51,7 @@ class MovieDetailViewModel @Inject constructor(
                         isLoaded = true
                         _showLoading.value = false
                         _movieDetail.value = results.data
+                        if(!results.data.video) loadVideos()
                     }
 
                     is Result.Error -> {
@@ -58,7 +64,7 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     /**
-     * get reviews
+     * load reviews
      */
     fun loadReview() {
         if (movieId != -1) {
@@ -67,6 +73,22 @@ class MovieDetailViewModel @Inject constructor(
                 if (results is Result.Success)
                     withContext(Dispatchers.Main) {
                         _reviews.value = results.data
+                    }
+                else Log.e("degea9", "api error ");
+            }
+        }
+    }
+
+    /**
+     * load videos
+     */
+    fun loadVideos(){
+        if (movieId != -1) {
+            viewModelScope.launch(Dispatchers.Default) {
+                val results = movieRepository.getVideos(movieId)
+                if (results is Result.Success)
+                    withContext(Dispatchers.Main) {
+                        _videos.value = results.data
                     }
                 else Log.e("degea9", "api error ");
             }

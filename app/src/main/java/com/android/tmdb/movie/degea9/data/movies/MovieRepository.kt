@@ -9,6 +9,7 @@ import com.android.tmdb.movie.degea9.data.api.TmdbService.Companion.UP_COMING_MO
 import com.android.tmdb.movie.degea9.data.database.entity.Movie
 import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
 import com.android.tmdb.movie.degea9.data.database.entity.Review
+import com.android.tmdb.movie.degea9.data.database.entity.Video
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,5 +37,9 @@ class MovieRepository @Inject constructor(private val remoteDataSource: MovieRem
 
     suspend fun getReviews(movieId: Int): Result<List<Review>> {
         return remoteDataSource.getMovieReview(movieId)
+    }
+
+    suspend fun getVideos(movieId: Int): Result<List<Video>> {
+        return remoteDataSource.getMovieVideos(movieId)
     }
 }

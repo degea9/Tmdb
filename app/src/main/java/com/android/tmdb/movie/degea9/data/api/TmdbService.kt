@@ -3,9 +3,12 @@ package com.android.tmdb.movie.degea9.data.api
 import com.android.tmdb.movie.degea9.data.api.model.MovieResponse
 import com.android.tmdb.movie.degea9.data.api.model.ReviewResponse
 import com.android.tmdb.movie.degea9.data.api.model.TVShowResponse
+import com.android.tmdb.movie.degea9.data.api.model.VideoResponse
 import com.android.tmdb.movie.degea9.data.database.entity.Credit
 import com.android.tmdb.movie.degea9.data.database.entity.MovieDetail
 import com.android.tmdb.movie.degea9.data.database.entity.TvShowDetail
+import com.android.tmdb.movie.degea9.data.database.entity.Video
+import com.android.tmdb.movie.degea9.util.Utils
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
@@ -19,7 +22,7 @@ interface TmdbService {
      */
     @GET("tv/on_the_air")
     fun getBroadcastingShows(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1
     ): Deferred<Response<TVShowResponse>>
 
@@ -28,7 +31,7 @@ interface TmdbService {
      */
     @GET("tv/popular")
     fun getPopularShows(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1
     ): Deferred<Response<TVShowResponse>>
 
@@ -37,7 +40,7 @@ interface TmdbService {
      */
     @GET("tv/top_rated")
     fun getTopRatedShows(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1
     ): Deferred<Response<TVShowResponse>>
 
@@ -46,7 +49,7 @@ interface TmdbService {
      */
     @GET("tv/airing_today")
     fun getAiringTodayShows(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1
     ): Deferred<Response<TVShowResponse>>
 
@@ -55,7 +58,7 @@ interface TmdbService {
      */
     @GET("discover/tv")
     fun getDiscoverShows(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("sort_by") sort_by: String? = "popularity.desc",
         @Query("page") page: Int? = 1,
         @Query("timezone") timezone: String? = "America/New_York",
@@ -67,7 +70,7 @@ interface TmdbService {
      */
     @GET("movie/now_playing")
     fun getPlayingMovies(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1,
         @Query("region") region: String? = null
     ): Deferred<Response<MovieResponse>>
@@ -77,7 +80,7 @@ interface TmdbService {
      */
     @GET("movie/popular")
     fun getPopularMovies(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1,
         @Query("region") region: String? = null
     ): Deferred<Response<MovieResponse>>
@@ -87,7 +90,7 @@ interface TmdbService {
      */
     @GET("movie/top_rated")
     fun getTopRatedMovies(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1,
         @Query("region") region: String? = null
     ): Deferred<Response<MovieResponse>>
@@ -97,7 +100,7 @@ interface TmdbService {
      */
     @GET("movie/upcoming")
     fun getUpComingMovies(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1,
         @Query("region") region: String? = null
     ): Deferred<Response<MovieResponse>>
@@ -107,7 +110,7 @@ interface TmdbService {
      */
     @GET("movie/latest")
     fun getLatestMovies(
-        @Query("language") language: String? = "en-US"
+        @Query("language") language: String? = Utils.getISO3166()
     ): Deferred<Response<MovieResponse>>
 
     /**
@@ -115,7 +118,7 @@ interface TmdbService {
      */
     @GET("discover/movie")
     fun getDiscoverMovies(
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("sort_by") sort_by: String? = "popularity.desc",
         @Query("include_adult") include_adult: Boolean? = false,
         @Query("include_video") include_video: Boolean? = false,
@@ -135,7 +138,7 @@ interface TmdbService {
     @GET("tv/{tv_id}")
     fun getShowDetail(
         @Path("tv_id") tv_id: Int,
-        @Query("language") language: String? = "en-US"
+        @Query("language") language: String? = Utils.getISO3166()
     ): Deferred<Response<TvShowDetail>>
 
     /**
@@ -144,7 +147,7 @@ interface TmdbService {
     @GET("movie/{movie_id}")
     fun getMovieDetail(
         @Path("movie_id") movie_id: Int,
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("append_to_response") append_to_response: String? = null
     ): Deferred<Response<MovieDetail>>
 
@@ -154,9 +157,21 @@ interface TmdbService {
     @GET("movie/{movie_id}/reviews")
     fun getMovieReviews(
         @Path("movie_id") movie_id: Int,
-        @Query("language") language: String? = "en-US",
+        @Query("language") language: String? = Utils.getISO3166(),
         @Query("page") page: Int? = 1
     ): Deferred<Response<ReviewResponse>>
+
+    /**
+     * get movie  reviews.
+     * Themoviedb filters videos by language
+     * using getISO3166 could lead to no video results
+     * so set the default language en-US
+     */
+    @GET("movie/{movie_id}/videos")
+    fun getMovieVideos(
+        @Path("movie_id") movie_id: Int,
+        @Query("language") language: String? = "en-US"
+    ): Deferred<Response<VideoResponse>>
 
     /**
      * get Tv show credit
@@ -164,7 +179,7 @@ interface TmdbService {
     @GET("tv/{tv_id}/credits")
     fun getCredit(
         @Path("tv_id") tv_id: Int,
-        @Query("language") language: String? = "en-US"
+        @Query("language") language: String? = Utils.getISO3166()
     ): Deferred<Response<Credit>>
 
     companion object {

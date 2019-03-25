@@ -107,3 +107,10 @@ fun setDirectorText(view: TextView, movie: MovieDetail?) {
         view.text = movie.credits.crew.filter { "Director".equals(it.job) }.map { it.name }.joinToString()
     }
 }
+
+@BindingAdapter("setProductionCompanies")
+fun setProductionCompanies(view: TextView, movie: MovieDetail?) {
+    movie?.let {
+        view.text = movie.production_companies.map{it.name}.joinToString()
+    }
+}
